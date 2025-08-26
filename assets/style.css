@@ -1,0 +1,86 @@
+/* Reset & font */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Full page background */
+body {
+    background: url("../assets/moviebackground.jpg");
+    /* background-image: url('moviebackground.jpg'); no-repeat center center/cover*/
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Container */
+.container {
+    background: rgba(0, 0, 0, 0.7);
+    padding: 30px;
+    width: 350px;
+    border-radius: 12px;
+    text-align: center;
+    color: #fff;
+    box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.8);
+}
+
+/* Logo */
+.logo {
+    width: 80px;
+    margin-bottom: 10px;
+}
+
+/* Title */
+h2 {
+    margin-bottom: 20px;
+    color: #ffcc00;
+}
+
+/* Input fields */
+input {
+    width: 100%;
+    padding: 10px;
+    margin: 8px 0;
+    border-radius: 6px;
+    border: none;
+}
+
+#mahirDropdown {
+    width: 100%;
+    padding: 10px;
+    margin: 8px 0;
+    border-radius: 6px;
+    border: none;
+}
+
+/* Buttons */
+button {
+    width: 100%;
+    padding: 10px;
+    background: #ffcc00;
+    border: none;
+    border-radius: 6px;
+    color: black;
+    font-weight: bold;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+button:hover {
+    background: #ffaa00;
+}
+
+/* Links */
+a {
+    display: block;
+    margin-top: 12px;
+    color: #ffcc00;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
