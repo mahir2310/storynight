@@ -1,4 +1,4 @@
-/* Reset & font */
+
 * {
     margin: 0;
     padding: 0;
@@ -6,7 +6,7 @@
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
-/* Full page background */
+
 body {
     background: url("../assets/moviebackground.jpg");
     /* background-image: url('moviebackground.jpg'); no-repeat center center/cover*/
@@ -16,7 +16,8 @@ body {
     align-items: center;
 }
 
-/* Container */
+
+
 .container {
     background: rgba(0, 0, 0, 0.7);
     padding: 30px;
@@ -27,19 +28,14 @@ body {
     box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.8);
 }
 
-/* Logo */
-.logo {
-    width: 80px;
-    margin-bottom: 10px;
-}
 
-/* Title */
+
 h2 {
     margin-bottom: 20px;
     color: #ffcc00;
 }
 
-/* Input fields */
+
 input {
     width: 100%;
     padding: 10px;
@@ -56,7 +52,7 @@ input {
     border: none;
 }
 
-/* Buttons */
+
 button {
     width: 100%;
     padding: 10px;
@@ -73,7 +69,7 @@ button:hover {
     background: #ffaa00;
 }
 
-/* Links */
+
 a {
     display: block;
     margin-top: 12px;
@@ -84,3 +80,14 @@ a {
 a:hover {
     text-decoration: underline;
 }
+
+
+.error {
+    color: red;
+    font-size: 12px;
+    margin-top: 4px;
+    display: block;
+    font-family: Arial, sans-serif;
+}
+
+
