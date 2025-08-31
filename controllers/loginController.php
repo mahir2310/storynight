@@ -1,5 +1,6 @@
 <?php
 session_start();
+require_once "../models/UserModel.php";
 
 $errors = [];
 
@@ -28,6 +29,21 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         header("Location: ../views/login.php");
         exit();
     }
+
+    $result = loginUser($email, $password);
+
+    if ($result == true)
+    {
+        header("Location: ../views/dashboard.php");
+        exit();
+    } else {
+        $errors['general'] = $result;
+        $_SESSION['errors'] = $errors;
+        header("Location: ../views/login.php");
+        exit();
+    }
+
+    echo $result;
 
 
 }

@@ -2,6 +2,7 @@
 
     session_start();
     $errors = $_SESSION['errors'] ?? [];
+    $db_error = $_SESSION['db_error'] ?? ["No error"];
     unset($_SESSION['errors']);
 
 ?>

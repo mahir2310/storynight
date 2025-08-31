@@ -1,5 +1,6 @@
 <?php
 session_start();
+require_once "../models/UserModel.php";
 $errors = [];
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -41,6 +42,26 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         header("Location: ../views/register.php");
         exit();
     }
+
+    $result = registerUser(
+        $name,
+        $email,
+        $password,
+        "customer",
+    );
+
+    if ($result == true)
+    {
+        header("Location: ../views/login.php");
+        exit();
+    } else {
+        $errors['general'] = $result;
+        $_SESSION['errors'] = $errors;
+        header("Location: ../views/register.php");
+        exit();
+    }
+
+    echo $result;
 
 }
 ?>
