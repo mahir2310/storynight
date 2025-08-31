@@ -8,12 +8,15 @@
 
 
 body {
-    background: url("../imgs/moviebackground.jpg");
-    /* background-image: url('moviebackground.jpg'); no-repeat center center/cover*/
+    background: url('../imgs/moviebackground.jpg');
+     /* no-repeat center center fixed; */
+    /* background-size: cover; */
+    /* background: url('../imgs/mahir.jpg'); */
     height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
+
 }
 
 

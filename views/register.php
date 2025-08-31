@@ -13,7 +13,7 @@
   <title>Story Night - Register</title>
   <link rel="stylesheet" href="../assets/styles/auth.css">
 </head>
-<body style="background-color:blue">
+<body >
   <div class="container">
         <h1>StoryNight</h1>
         <h2>Register</h2>
