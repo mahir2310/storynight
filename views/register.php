@@ -1,5 +1,9 @@
 <?php
-session_start();
+
+    session_start();
+    $errors = $_SESSION['errors'] ?? [];
+    unset($_SESSION['errors']);
+
 ?>
 
 <!DOCTYPE html>
@@ -12,7 +16,7 @@ session_start();
   <div class="container">
         <h1>StoryNight</h1>
         <h2>Register</h2>
-        <form method="post"  onsubmit="return validateRegister(event)" action ="">
+        <form method="post"  onsubmit="return validateRegister(event)" action ="../controllers/registerController.php">
             
         <input type="text" name="name" placeholder="Enter Full Name">
         <span id="nameError" class="error"><?php echo $errors['name'] ?? ''; ?></span>
