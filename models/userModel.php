@@ -2,59 +2,103 @@
 
 require_once "database.php";
 
-function usernameExists($username) {
-    global $pdo;
-    $sql = "SELECT user_id FROM users WHERE username = :username LIMIT 1";
-    $stmt = $pdo->prepare($sql);
-    $stmt->execute([':username' => $username]);
-    return $stmt->fetch(PDO::FETCH_ASSOC) ? true : false; // return true if username exists
-}
+class UserModel {
+    private $pdo;
 
-function emailExists($email) {
-    global $pdo;
-    $sql = "SELECT user_id FROM users WHERE email = :email LIMIT 1";
-    $stmt = $pdo->prepare($sql);
-    $stmt->execute([':email' => $email]);
-    return $stmt->fetch(PDO::FETCH_ASSOC) ? true : false; // return true if email exists
-}
-
-function registerUser($username, $email, $password, $role) {
-    global $pdo;
-    if (usernameExists($username)) {
-        return "Username already taken.";
-    }
-    if (emailExists($email)) {
-        return "Email already registered.";
+    public function __construct(PDO $pdo) {
+        $this->pdo = $pdo;
     }
 
-    $sql = "INSERT INTO users (username, email, password, role) 
-            VALUES (:username, :email, :password, :role)";
-    $stmt = $pdo->prepare($sql);
+    public function usernameExists($username) {
 
-    $success = $stmt->execute([
-        ':username'      => $username,
-        ':email'         => $email,
-        ':password'      => $password,
-        ':role'          => $role,
-    ]);
-
-    return $success ? "User registered successfully!" : "Registration failed.";
-}
-
-function loginUser($email, $password) {
-    global $pdo;
-    $sql = "SELECT user_id, username, password, role FROM users WHERE email = :email LIMIT 1";
-    $stmt = $pdo->prepare($sql);
-    $stmt->execute([':email' => $email]);
-    $user = $stmt->fetch(PDO::FETCH_ASSOC);
-
-    if ($user && $password == $user['password']) {
-        session_start();
-        $_SESSION['user_id']  = $user['user_id'];
-        $_SESSION['username'] = $user['username'];
-        $_SESSION['role']     = $user['role'];
-        return true;
+        $sql = "SELECT user_id FROM users WHERE username = :username LIMIT 1";
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->execute([':username' => $username]);
+        return $stmt->fetch() ? true : false;
     }
 
-    return false;
+    // Check if email exists
+    public function emailExists($email) {
+        $sql = "SELECT user_id FROM users WHERE email = :email LIMIT 1";
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->execute([':email' => $email]);
+        return $stmt->fetch() ? true : false;
+    }
+
+    // Register new user
+    public function registerUser($username, $email, $password, $role) {
+        if ($this->usernameExists($username)) {
+            return [
+                'success' => false,
+                'message' => 'Username already taken.'
+            ];
+        }
+        if ($this->emailExists($email)) {
+            return [
+                'success' => false,
+                'message' => 'Email already registered.'
+            ];
+        }
+
+        $sql = "INSERT INTO users (username, email, password, role) 
+                VALUES (:username, :email, :password, :role)";
+        $stmt = $this->pdo->prepare($sql);
+
+        $success = $stmt->execute([
+            ':username' => $username,
+            ':email'    => $email,
+            ':password' => $password,
+            ':role'     => $role
+        ]);
+
+        return $success ? [
+            'success' => true,
+            'message' => 'User registered successfully!'
+        ] : [
+            'success' => false,
+            'message' => 'Registration failed.'
+        ];
+    }
+
+    // Login user
+    public function loginUser($email, $password) {
+        $sql = "SELECT * FROM users WHERE email = :email LIMIT 1";
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->execute([':email' => $email]);
+        $user = $stmt->fetch();
+
+        if ($user && $password == $user['password']) {
+            unset($user['password']);
+            return [
+                'success' => true,
+                'user'    => $user
+            ];
+        }
+
+        return [
+            'success' => false,
+            'message' => 'Invalid credentials.'
+        ];
+    }
+
+    // Change password
+    public function changePassword($email, $newPassword) {
+        if (!$this->emailExists($email)) {
+            return ['success' => false, 'message' => 'Email not found.'];
+        }
+
+        $sql = "UPDATE users SET password = :password WHERE email = :email";
+        $stmt = $this->pdo->prepare($sql);
+
+        $success = $stmt->execute([
+            ':password' => $newPassword,
+            ':email'    => $email
+        ]);
+
+        return $success 
+            ? ['success' => true, 'message' => 'Password updated successfully!'] 
+            : ['success' => false, 'message' => 'Failed to update password.'];
+    }
 }
+
+?>

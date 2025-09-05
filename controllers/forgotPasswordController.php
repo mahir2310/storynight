@@ -2,17 +2,17 @@
 session_start();
 require_once "../models/UserModel.php";
 
+$errors = [];
+
 $db = new Database();
 $pdo = $db->getConnection();
 $userModel = new UserModel($pdo);
 
-$errors = [];
-
-
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     $email = $_POST["email"] ?? "";
-    $password = $_POST["password"] ?? "";
+    $password = $_POST["newPassword"] ?? "";
+    $confirmPassword = $_POST["confirmPassword"] ?? "";
 
     // Email cannot be empty or invalid
     if (empty($email)) {
@@ -28,36 +28,28 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $errors['password'] = "Password must be at least 8 characters";
     }
 
-    if (!empty($errors)) {
-        $_SESSION['errors'] = $errors;
-        header("Location: ../views/login.php");
-        exit();
+    // Confirm Password must match Password
+    if (empty($confirmPassword)) {
+        $errors['confirmPasswordError'] = "Please confirm password";
+    } elseif ($confirmPassword !== $password) {
+        $errors['confirmPasswordError'] = "Passwords do not match";
     }
-
-    $result = $userModel->loginUser($email, $password);
+    
+    $result = $userModel->changePassword($email, $password);
 
     if ($result['success'] == true)
     {
-        $_SESSION['user'] = $result['user'];
+        $_SESSION['forgot_password'] = $result['message'];
 
-        // redirect to personalized dashboard based on user role
-        if ($result['user']['role'] == 'admin') {
-            header("Location: ../views/admin/admin_layout.php");
-        } elseif ($result['user']['role'] == 'manager') {
-            header("Location: ../views/manager/manager_layout.php");
-        } elseif ($result['user']['role'] == 'customer') {
-            header("Location: ../views/customer/customer_layout.php");
-        }
+        header("Location: ../views/login.php");
         exit();
     } else {
-        $errors['login'] = $result['message'];
+        $errors['forgot_password'] = $result['message'];
         $_SESSION['errors'] = $errors;
-        header("Location: ../views/login.php");
+        header("Location: ../views/forgot_password.php");
         exit();
     }
 
     echo $result;
-
-
 }
 ?>

@@ -31,6 +31,7 @@
         <input type="password"  name="confirmPassword" placeholder= "re-enter password">
         <span id="confirmError" class="error"><?php echo $errors['confirm'] ?? ''; ?></span>
         
+        <span class="error"><?php echo $errors['register'] ?? ''; ?></span>
         <button type="submit" name="register">Register</button>
 
         </form>

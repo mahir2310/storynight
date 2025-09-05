@@ -1,6 +1,11 @@
 <?php
 session_start();
 require_once "../models/UserModel.php";
+
+$db = new Database();
+$pdo = $db->getConnection();
+$userModel = new UserModel($pdo);
+
 $errors = [];
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -43,19 +48,19 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         exit();
     }
 
-    $result = registerUser(
+    $result = $userModel->registerUser(
         $name,
         $email,
         $password,
         "customer",
     );
 
-    if ($result == true)
+    if ($result['success'] == true)
     {
         header("Location: ../views/login.php");
         exit();
     } else {
-        $errors['general'] = $result;
+        $errors['register'] = $result['message'];
         $_SESSION['errors'] = $errors;
         header("Location: ../views/register.php");
         exit();

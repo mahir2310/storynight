@@ -1,14 +1,28 @@
 <?php
 
-$host = "localhost";
-$db   = "storynight";
-$user = "root";
-$pass = "";
+class Database{
 
-try {
-    $pdo = new PDO("mysql:host=$host;dbname=$db", $user, $pass);
-    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-} catch (PDOException $e) {
-    $_SESSION["db_error"] = $e;
-    die("Database connection failed: " . $e->getMessage());
+    private $host = "localhost";
+    private $db   = "storynight";
+    private $user = "root";
+    private $pass = "";
+    private $pdo;
+
+    public function __construct() {
+        try {
+            $this->pdo = new PDO("mysql:host={$this->host};dbname={$this->db}", $this->user, $this->pass);
+            $this->pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+            $this->pdo->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
+        } catch (PDOException $e) {
+            $_SESSION["db_error"] = $e;
+            die("Database connection failed: " . $e->getMessage());
+        }
+
+    }
+    public function getConnection() {
+        return $this->pdo;
+    }
+
 }
+
+?>

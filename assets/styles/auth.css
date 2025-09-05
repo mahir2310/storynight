@@ -93,4 +93,24 @@ a:hover {
     font-family: Arial, sans-serif;
 }
 
+.success {
+    color: rgb(48, 248, 48);
+    font-size: 12px;
+    margin-top: 4px;
+    display: block;
+    font-family: Arial, sans-serif;
+}
+
+#loginError, #registerError {
+    color: red;
+    font-size: 12px;
+    margin-top: 4px;
+    display: block;
+    text-align: center;
+}
+
+#submitOTPform, #resetPasswordForm {
+    display: none;
+}
+
 

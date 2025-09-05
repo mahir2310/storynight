@@ -2,6 +2,8 @@
   session_start();
   $errors = $_SESSION['errors'] ?? [];
   $db_error = $_SESSION['db_error'] ?? ["No error"];
+  $forgot_password = $_SESSION['forgot_password'] ?? "";
+  unset($_SESSION['forgot_password']);
   unset($_SESSION['errors']);
 ?>
 
@@ -22,8 +24,11 @@
 
       <input type="password" name="password" placeholder="Enter Password" >
       <span id="passwordError" class="error"><?php echo $errors['password'] ?? ''; ?></span>
+      <span id="loginError" class="error"><?php echo $errors['login'] ?? ''; ?></span>
 
       <button type="submit" name="login">Login</button>
+      <span id="forgot_password" class="success"><?php echo $forgot_password; ?></span>
+
 
     </form>
     <a href="./register.php">New user? Register here</a>
