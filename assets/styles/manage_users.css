@@ -1,0 +1,194 @@
+/* Search Container */
+.search-container {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+    align-items: center;
+}
+
+.search-input {
+    flex: 1;
+    padding: 10px;
+    border: 1px solid #444;
+    border-radius: 4px;
+    background: #222;
+    color: #fff;
+}
+
+.btn-search {
+    padding: 10px 20px;
+    background: #ffcc00;
+    color: #000;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+/* Table Styles */
+.table-container {
+    overflow-x: auto;
+}
+
+.users-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: rgba(0, 0, 0, 0.6);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.users-table th,
+.users-table td {
+    padding: 12px 15px;
+    text-align: left;
+    border-bottom: 1px solid #333;
+}
+
+.users-table th {
+    background: rgba(255, 204, 0, 0.2);
+    color: #ffcc00;
+    font-weight: 600;
+}
+
+.users-table tr:hover {
+    background: rgba(255, 255, 255, 0.05);
+}
+
+/* Role Dropdown */
+.role-dropdown {
+    padding: 6px 8px;
+    border: 1px solid #444;
+    border-radius: 4px;
+    background: #333;
+    color: #fff;
+    cursor: pointer;
+}
+
+.role-dropdown:focus {
+    outline: none;
+    border-color: #ffcc00;
+}
+
+/* Status Badges */
+.status-badge {
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 12px;
+    font-weight: 500;
+}
+
+.status-active {
+    background: #27ae60;
+    color: white;
+}
+
+.status-banned {
+    background: #e74c3c;
+    color: white;
+}
+
+.status-pending {
+    background: #f39c12;
+    color: white;
+}
+
+/* User Actions */
+.user-actions {
+    display: flex;
+    gap: 8px;
+}
+
+.user-actions button {
+    padding: 6px 12px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 12px;
+}
+
+.btn-ban {
+    background: #f39c12;
+    color: white;
+}
+
+.btn-ban:hover {
+    background: #e67e22;
+}
+
+.btn-remove {
+    background: #e74c3c;
+    color: white;
+}
+
+.btn-remove:hover {
+    background: #c0392b;
+}
+
+/* Modal Styles */
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7);
+    z-index: 1000;
+}
+
+.modal-content {
+    background: #222;
+    margin: 15% auto;
+    padding: 20px;
+    width: 90%;
+    max-width: 400px;
+    border-radius: 8px;
+}
+
+.modal-header {
+    margin-bottom: 15px;
+}
+
+.modal-body {
+    margin-bottom: 20px;
+}
+
+.modal-footer {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+}
+
+.modal-footer button {
+    padding: 8px 16px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.btn-cancel {
+    background: #7f8c8d;
+    color: white;
+}
+
+.btn-cancel:hover {
+    background: #636e72;
+}
+
+.btn-confirm-remove {
+    background: #e74c3c;
+    color: white;
+}
+
+.btn-confirm-remove:hover {
+    background: #c0392b;
+}
+
+.btn-confirm-ban {
+    background: #f39c12;
+    color: white;
+}
+
+.btn-confirm-ban:hover {
+    background: #e67e22;
+}
