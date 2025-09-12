@@ -101,4 +101,19 @@ class UserModel {
     }
 }
 
+
+
+
+// Get all users
+public function getAllUsers()
+{
+    $sql = "SELECT user_id, username, email, role, status, created_at 
+        FROM users 
+        ORDER BY created_at DESC";
+    $stmt = $this->pdo->prepare($sql);
+    $stmt->execute();
+    return $stmt->fetchAll();
+}
+
+
 ?>
