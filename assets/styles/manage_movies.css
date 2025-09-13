@@ -1,0 +1,176 @@
+/* Search */
+.search-container {
+    margin-bottom: 20px;
+}
+
+.search-input {
+    width: 100%;
+    padding: 12px 15px;
+    border-radius: 6px;
+    border: 1px solid #444;
+    background: rgba(0, 0, 0, 0.6);
+    color: #fff;
+    font-size: 1rem;
+}
+
+.search-input:focus {
+    outline: none;
+    border-color: #ffcc00;
+}
+
+/* Table */
+.table-container {
+    overflow-x: auto;
+}
+
+.movies-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: rgba(0, 0, 0, 0.6);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.movies-table th,
+.movies-table td {
+    padding: 12px 15px;
+    text-align: left;
+    border-bottom: 1px solid #333;
+}
+
+.movies-table th {
+    background: rgba(255, 204, 0, 0.2);
+    color: #ffcc00;
+    font-weight: 600;
+}
+
+.movies-table tr:hover {
+    background: rgba(255, 255, 255, 0.05);
+}
+
+/* Discount */
+.discount-badge {
+    background: #2ecc71;
+    color: #fff;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 0.85rem;
+    font-weight: 500;
+}
+
+.no-discount {
+    color: #888;
+    font-style: italic;
+}
+
+/* Actions */
+.action-buttons {
+    display: flex;
+    gap: 8px;
+}
+
+.btn-discount {
+    padding: 6px 12px;
+    background: #3498db;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    text-decoration: none;
+    font-size: 0.85rem;
+    cursor: pointer;
+}
+
+.btn-discount:hover {
+    background: #2980b9;
+}
+
+.btn-delete {
+    padding: 6px 12px;
+    background: #e74c3c;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    font-size: 0.85rem;
+    cursor: pointer;
+}
+
+.btn-delete:hover {
+    background: #c0392b;
+}
+
+/* Modal */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+}
+
+.modal-content {
+    background-color: rgba(0, 0, 0, 0.9);
+    margin: 15% auto;
+    padding: 0;
+    border: 1px solid #333;
+    width: 90%;
+    max-width: 500px;
+    border-radius: 8px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+}
+
+.modal-header {
+    padding: 15px 20px;
+    border-bottom: 1px solid #333;
+}
+
+.modal-header h2 {
+    color: #ffcc00;
+    margin: 0;
+    font-size: 1.5rem;
+}
+
+.modal-body {
+    padding: 20px;
+}
+
+.modal-body p {
+    margin: 0;
+    color: #ccc;
+    line-height: 1.5;
+}
+
+.modal-footer {
+    padding: 15px 20px;
+    border-top: 1px solid #333;
+    text-align: right;
+}
+
+.btn-cancel {
+    padding: 8px 16px;
+    background: #7f8c8d;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-right: 10px;
+}
+
+.btn-cancel:hover {
+    background: #636e72;
+}
+
+.btn-confirm-delete {
+    padding: 8px 16px;
+    background: #e74c3c;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.btn-confirm-delete:hover {
+    background: #c0392b;
+}
