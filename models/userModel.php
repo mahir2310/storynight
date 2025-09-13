@@ -99,21 +99,71 @@ class UserModel {
             ? ['success' => true, 'message' => 'Password updated successfully!'] 
             : ['success' => false, 'message' => 'Failed to update password.'];
     }
+
+
+
+
+
+    // Get all users
+    public function getAllUsers()
+    {
+        $sql = "SELECT user_id, username, email, role, status, created_at 
+            FROM users 
+            ORDER BY created_at DESC";
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->execute();
+        return $stmt->fetchAll();
+    }
+
+    // Remove user
+    public function removeUser($userId)
+    {
+        $sql = "DELETE FROM users WHERE user_id = :user_id";
+        $stmt = $this->pdo->prepare($sql);
+        $success = $stmt->execute([':user_id' => $userId]);
+
+        return $success
+            ? ['success' => true, 'message' => 'User removed successfully!']
+            : ['success' => false, 'message' => 'Failed to remove user.'];
+    }
+
+    // Ban/Unban user
+    public function toggleUserStatus($userId, $currentStatus)
+    {
+        $newStatus = $currentStatus === 'banned' ? 'active' : 'banned';
+        $action = $newStatus === 'banned' ? 'banned' : 'unbanned';
+
+        $sql = "UPDATE users SET status = :status WHERE user_id = :user_id";
+        $stmt = $this->pdo->prepare($sql);
+        $success = $stmt->execute([
+            ':status' => $newStatus,
+            ':user_id' => $userId
+        ]);
+
+        return $success
+            ? ['success' => true, 'message' => "User {$action} successfully!"]
+            : ['success' => false, 'message' => "Failed to {$action} user."];
+    }
+
+    // Update user role
+    public function updateUserRole($userId, $newRole)
+    {
+        $validRoles = ['customer', 'manager', 'admin'];
+        if (!in_array($newRole, $validRoles)) {
+            return ['success' => false, 'message' => 'Invalid role specified.'];
+        }
+
+        $sql = "UPDATE users SET role = :role WHERE user_id = :user_id";
+        $stmt = $this->pdo->prepare($sql);
+        $success = $stmt->execute([
+            ':role' => $newRole,
+            ':user_id' => $userId
+        ]);
+
+        return $success
+            ? ['success' => true, 'message' => 'User role updated successfully!']
+            : ['success' => false, 'message' => 'Failed to update user role.'];
+    }
+
 }
-
-
-
-
-// Get all users
-public function getAllUsers()
-{
-    $sql = "SELECT user_id, username, email, role, status, created_at 
-        FROM users 
-        ORDER BY created_at DESC";
-    $stmt = $this->pdo->prepare($sql);
-    $stmt->execute();
-    return $stmt->fetchAll();
-}
-
-
 ?>
