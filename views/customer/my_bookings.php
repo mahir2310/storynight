@@ -104,3 +104,7 @@ $bookedMovies = [
         </div>
     </div>
 </div>
+
+<script src="../../assets/scripts/my_bookings.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script src="../../assets/scripts/print_ticket.js"></script>
