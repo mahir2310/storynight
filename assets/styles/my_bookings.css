@@ -1,0 +1,25 @@
+.movies-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 20px;
+}
+
+.movie-actions {
+    display: flex;
+    gap: 10px;
+}
+
+.btn-print {
+    margin-left: 8px;
+    padding: 4px;
+    border: none;
+    background: #3498db;
+    color: white;
+}
+
+.btn-cancel {
+    padding: 4px;
+    border: none;
+    background: #e74c3c;
+    color: white;
+}
