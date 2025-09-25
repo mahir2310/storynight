@@ -37,9 +37,77 @@ document.addEventListener('DOMContentLoaded', function() {
     });
     
     // Handle delete 
-    document.querySelector('.btn-confirm-delete').addEventListener('click', function() {
-        if (movieIdToDelete) {
-            //window.location.href = `manage_movies.php?action=delete&id=${movieIdToDelete}`;
-        }
+    document
+    .querySelector(".btn-confirm-delete")
+    .addEventListener("click", async function () {
+      if (movieIdToDelete) {
+        const params = new URLSearchParams({
+          action: "delete",
+          movie_id: movieIdToDelete,
+        });
+
+        await fetch(
+          "/storynight/controllers/manageMoviesController.php?" +
+            params.toString()
+        )
+          .then((res) => {
+            res.text();
+            location.reload();
+          })
+          .catch((err) => console.error("Fetch error:", err));
+      }
     });
+
+    // Modal for discount
+    const discountModal = document.getElementById("discountModal");
+    const discountMovieTitle = document.getElementById("discountMovieTitle");
+    const discountInput = document.getElementById("discountInput");
+    let movieIdToDiscount = null;
+  
+    document.querySelectorAll(".btn-discount").forEach((button) => {
+      button.addEventListener("click", function () {
+        movieIdToDiscount = this.closest("tr")
+          .querySelector(".btn-delete")
+          .getAttribute("data-movie-id");
+        const title = this.closest("tr")
+          .querySelector(".btn-delete")
+          .getAttribute("data-movie-title");
+        discountMovieTitle.textContent = title;
+        discountInput.value = "";
+        discountModal.style.display = "block";
+      });
+    });
+  
+    document
+      .querySelector(".btn-cancel-discount")
+      .addEventListener("click", function () {
+        discountModal.style.display = "none";
+        movieIdToDiscount = null;
+      });
+  
+    document
+      .querySelector(".btn-confirm-discount")
+      .addEventListener("click", async function () {
+        const discountValue = discountInput.value.trim();
+        if (movieIdToDiscount && discountValue !== "") {
+          const params = new URLSearchParams({
+            action: "add_discount",
+            movie_id: movieIdToDiscount,
+            discount: discountValue,
+          });
+  
+          await fetch(
+            "/storynight/controllers/manageMoviesController.php?" +
+              params.toString()
+          )
+            .then((res) => {
+              res.text();
+              location.reload();
+            })
+            .catch((err) => console.error("Fetch error:", err));
+  
+          discountModal.style.display = "none";
+          movieIdToDiscount = null;
+        }
+      });
 });

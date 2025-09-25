@@ -7,48 +7,9 @@ if (!isset($_SESSION['user']) || $_SESSION['user']['role'] != 'manager') {
 $user = $_SESSION['user'];
 $pageTitle = "Manage Movies";
 
-// Sample data
-$movies = [
-    [
-        'movie_id' => 1,
-        'title' => 'The Dark Knight',
-        'genre' => 'Action',
-        'duration' => 152,
-        'release_date' => '2023-11-15',
-        'hall_name' => 'Main Hall',
-        'show_datetime' => '2023-12-20 19:30:00',
-        'available_seats' => 45,
-        'total_seats' => 120,
-        'base_price' => 599.00,
-        'discount' => 0
-    ],
-    [
-        'movie_id' => 2,
-        'title' => 'Inception',
-        'genre' => 'Sci-Fi',
-        'duration' => 148,
-        'release_date' => '2023-11-20',
-        'hall_name' => 'IMAX Hall',
-        'show_datetime' => '2023-12-22 20:00:00',
-        'available_seats' => 78,
-        'total_seats' => 150,
-        'base_price' => 699.00,
-        'discount' => 10
-    ],
-    [
-        'movie_id' => 3,
-        'title' => 'The Shawshank Redemption',
-        'genre' => 'Drama',
-        'duration' => 142,
-        'release_date' => '2023-11-25',
-        'hall_name' => 'VIP Hall',
-        'show_datetime' => '2023-12-25 18:00:00',
-        'available_seats' => 12,
-        'total_seats' => 50,
-        'base_price' => 599.00,
-        'discount' => 0
-    ]
-];
+require_once __DIR__ . "/../../controllers/getMovieController.php";
+
+$movies = getAllMovies() ?? [];
 ?>
 
 <link rel="stylesheet" href="../../assets/styles/manage_movies.css">
@@ -108,6 +69,7 @@ $movies = [
     </div>
 </div>
 
+<!-- Delete Modal -->
 <div id="deleteModal" class="modal">
     <div class="modal-content">
         <div class="modal-header">
