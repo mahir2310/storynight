@@ -67,6 +67,13 @@ class UserModel {
         $stmt->execute([':email' => $email]);
         $user = $stmt->fetch();
 
+        if ($user['status'] == 'banned') {
+            return [
+                'success' => false,
+                'message' => 'You are banned from the system.'
+            ];
+        }
+
         if ($user && $password == $user['password']) {
             unset($user['password']);
             return [
