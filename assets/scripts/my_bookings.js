@@ -17,10 +17,11 @@ document.addEventListener('DOMContentLoaded', function() {
     const cancelModal = document.getElementById('cancelModal');
     let currentBookingId = null;
     
-    // Cancel booking
+    // open Cancel booking
     document.querySelectorAll('.btn-cancel').forEach(btn => {
         btn.addEventListener('click', function() {
             currentBookingId = this.dataset.id;
+            currentMovieId = this.dataset.mid;
             cancelModal.style.display = 'block';
         });
     });
@@ -32,13 +33,33 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
     
-    // Confirm 
-    document.querySelector('.btn-confirm').addEventListener('click', function() {
-        if (currentBookingId) {
-            alert(`Booking #${currentBookingId} cancelled successfully!`);
-            cancelModal.style.display = 'none';
-            // In real app: AJAX request to cancel booking
+    // Confirm cancel booking
+  document.querySelector(".btn-confirm").addEventListener("click", async function () {
+    if (currentBookingId) {
+      cancelModal.style.display = "none";
+
+      const params = new URLSearchParams({
+        action: "cancel",
+        movie_id: currentMovieId,
+      });
+
+      try {
+        const response = await fetch(
+          "/storynight/controllers/manageBookingsController.php?" + params.toString()
+        );
+        const result = await response.json();
+
+        if (result.success) {
+          alert(result.message || "Booking cancelled successfully!");
+          location.reload();
+        } else {
+          alert(result.message || "Failed to cancel booking.");
         }
-    });
+      } catch (err) {
+        console.error("Fetch error:", err);
+        alert("An error occurred while cancelling booking.");
+      }
+    }
+  });
     
 });
