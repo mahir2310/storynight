@@ -17,6 +17,8 @@ $bookedMovies = getMyBookings($user['user_id']) ?? [];
 <link rel="stylesheet" href="../../assets/styles/browse_movies.css">
 <link rel="stylesheet" href="../../assets/styles/my_bookings.css">
 
+<?php echo $_SESSION['cookie'] ?? '' ?>
+
 <div class="dashboard-header">
     <h1>My Bookings</h1>
     <p>View and manage your movie bookings</p>

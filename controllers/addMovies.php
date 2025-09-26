@@ -1,6 +1,7 @@
 <?php
 session_start();
 require_once "../models/MovieModel.php";
+require_once "cookieController.php";
 
 $db = new Database();
 $pdo = $db->getConnection();
@@ -9,6 +10,8 @@ $movieModel = new MovieModel($pdo);
 $errors = [];
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
+
+    checkCookie();
 
     $title         = $_POST["title"] ?? "";
     $genre         = $_POST["genre"] ?? "";

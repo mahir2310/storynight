@@ -1,5 +1,6 @@
 <?php
 require_once "../models/UserModel.php";
+require_once "cookieController.php";
 
 $db = new Database();
 $pdo = $db->getConnection();
@@ -8,6 +9,7 @@ $userModel = new UserModel($pdo);
 
 if ($_SERVER['REQUEST_METHOD'] == 'GET') {
     // header('Content-Type: application/json');
+    checkCookie();
     $_SESSION['error'] = $_GET['action'];
     $action = $_GET['action'];
     $userId = isset($_GET['user_id']) ? (int)$_GET['user_id'] : null;
@@ -43,6 +45,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
 // Remove user action
 function removeUser($userId)
 {
+    checkCookie();
     global $userModel;
     if (!$userId) {
         $_SESSION['error'] = 'User ID is required.';
@@ -61,6 +64,7 @@ function removeUser($userId)
 // Ban/Unban user action
 function toggleUserStatus($userId, $currentStatus)
 {
+    checkCookie();
     global $userModel;
     if (!$userId) {
         $_SESSION['admin_error'] = 'User ID is required.';
@@ -79,6 +83,7 @@ function toggleUserStatus($userId, $currentStatus)
 // Update user role action
 function updateUserRole($userId, $newRole)
 {
+    checkCookie();
     global $userModel;
     if (!$userId) {
         $_SESSION['admin_error'] = 'User ID is required.';

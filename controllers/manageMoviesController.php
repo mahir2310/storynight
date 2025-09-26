@@ -1,11 +1,13 @@
 <?php
 require_once "../models/MovieModel.php";
+require_once "cookieController.php";
 
 $db = new Database();
 $pdo = $db->getConnection();
 $movieModel = new MovieModel($pdo);
 
 if ($_SERVER['REQUEST_METHOD'] == 'GET') {
+    checkCookie();
     $action = $_GET['action'] ?? '';
     $movieId = isset($_GET['movie_id']) ? (int)$_GET['movie_id'] : null;
 
@@ -33,6 +35,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
 // Delete movie action
 function deleteMovie($movieId)
 {
+    checkCookie();
     global $movieModel;
     if (!$movieId) {
         $_SESSION['admin_error'] = 'Movie ID is required.';
@@ -51,6 +54,7 @@ function deleteMovie($movieId)
 // Add movie discount
 function addMovieDiscount($movieId, $discount)
 {
+    checkCookie();
     global $movieModel;
     if (!$movieId) {
         $_SESSION['admin_error'] = 'Movie ID is required.';

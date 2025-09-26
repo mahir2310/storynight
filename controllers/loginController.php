@@ -1,6 +1,7 @@
 <?php
 session_start();
 require_once "../models/UserModel.php";
+require_once "cookieController.php";
 
 $db = new Database();
 $pdo = $db->getConnection();
@@ -39,6 +40,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if ($result['success'] == true)
     {
         $_SESSION['user'] = $result['user'];
+        generateCookie();
 
         // redirect to personalized dashboard based on user role
         if ($result['user']['role'] == 'admin') {

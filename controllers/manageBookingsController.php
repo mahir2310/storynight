@@ -1,12 +1,14 @@
 <?php
 session_start();
 require_once "../models/BookingModel.php";
+require_once "cookieController.php";
 
 $db = new Database();
 $pdo = $db->getConnection();
 $bookingModel = new BookingModel($pdo);
 
 if ($_SERVER['REQUEST_METHOD'] == 'GET') {
+    checkCookie();
     $action = $_GET['action'] ?? '';
     $bookingId = isset($_GET['booking_id']) ? (int)$_GET['booking_id'] : null;
     $userId = $_SESSION['user']['user_id'] ?? null;
