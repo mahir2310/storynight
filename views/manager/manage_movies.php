@@ -85,4 +85,21 @@ $movies = getAllMovies() ?? [];
     </div>
 </div>
 
+<!-- Discount Modal -->
+<div id="discountModal" class="modal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h2>Set Discount</h2>
+        </div>
+        <div class="modal-body">
+            <p>Enter discount percentage for <span id="discountMovieTitle"></span>:</p> <br>
+            <input type="number" id="discountInput" class="form-control" min="0" max="100" step="1" placeholder="e.g. 10">
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn-cancel-discount">Cancel</button>
+            <button type="button" class="btn-confirm-discount">Save</button>
+        </div>
+    </div>
+</div>
+
 <script src="../../assets/scripts/manage_movies.js"></script>
