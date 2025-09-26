@@ -1,7 +1,8 @@
 // Print button 
 document.querySelectorAll(".btn-print").forEach((btn) => {
   btn.addEventListener("click", function () {
-    const bookingId = this.dataset.id;
+    const bookingId = this.getAttribute("data-id");
+    // this.dataset.id; 
     const card = this.closest(".movie-card");
     generateTicketPDF(card, bookingId);
   });
@@ -63,7 +64,7 @@ function generateTicketPDF(card, bookingId) {
 
   // Price and booking ID
   doc.text(`Total: ${price}`, 25, 130);
-  doc.text(`Booking ID: ${bookingId}`, 25, 140);
+ doc.text(`Booking ID: ${bookingId}`, 105, 60,{ align: "center" });
 
   // Ticket footer
   doc.setFontSize(10);

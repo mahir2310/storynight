@@ -29,7 +29,7 @@ $movies = getAllMovies() ?? [];
         <?php foreach ($movies as $movie): ?>
         <div class="movie-card">
             <div class="movie-poster">
-                <img src="<?php echo $movie['poster']; ?>" alt="<?php echo htmlspecialchars($movie['title']); ?>"
+                <img src="../../<?php echo $movie['poster']; ?>" alt="<?php echo htmlspecialchars($movie['title']); ?>"
                 onerror="this.src='../../assets/imgs/poster.png';">
                 <?php if ($movie['available_seats'] == 0): ?>
                     <div class="sold-out">Sold Out</div>
@@ -51,7 +51,7 @@ $movies = getAllMovies() ?? [];
                     <span class="price">৳<?php echo number_format($movie['base_price'], 2); ?></span>
                     
                     <div class="movie-actions">
-                        <?php if ($movie['booked']): ?>
+                        <?php if ($movie['booked']??false): ?>
                             <button class="btn-booked" disabled>Booked</button>
                         <?php elseif ($movie['available_seats'] > 0): ?>
                             <button class="btn-book" 
