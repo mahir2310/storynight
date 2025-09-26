@@ -16,7 +16,7 @@ $user = $_SESSION['user'];
 </div>
 
 <div class="dashboard-section">
-    <form id="addMovieForm" action="process_movie.php" method="POST" enctype="multipart/form-data">
+    <form id="addMovieForm" action="../../controllers/addMovies.php"  method="POST" enctype="multipart/form-data">
         <div class="form-row">
             <div class="form-group">
                 <label for="title" class="form-label">Movie Title *</label>
@@ -81,15 +81,15 @@ $user = $_SESSION['user'];
             </div>
             
             <div class="form-group">
-                <label for="base_price" class="form-label">Base Price ($) *</label>
+                <label for="base_price" class="form-label">Base Price  (৳)*</label>
                 <input type="number" id="base_price" name="base_price" class="form-control" min="0" step="0.01" required>
             </div>
         </div>
         
-        <!-- <div class="form-group">
+        <div class="form-group">
             <label for="movie_poster" class="form-label">Movie Poster</label>
             <input type="file" id="movie_poster" name="movie_poster" class="form-control" accept="image/*">
-        </div> -->
+        </div>
         
         <button type="submit" class="btn">Add Movie</button>
     </form>
