@@ -8,46 +8,9 @@ $user = $_SESSION['user'];
 
 $pageTitle = "Browse Movies";
 
-// Sample movie data
-$movies = [
-    [
-        'movie_id' => 1,
-        'title' => 'The Dark Knight',
-        'genre' => 'Action',
-        'duration' => 152,
-        'hall_name' => 'Main Hall',
-        'show_datetime' => '2023-12-20 19:30:00',
-        'available_seats' => 45,
-        'base_price' => 599,
-        'poster' => '../../assets/posters/dark_knight.jpg',
-        'booked' => false
-    ],
-    [
-        'movie_id' => 2,
-        'title' => 'Inception',
-        'genre' => 'Sci-Fi',
-        'duration' => 148,
-        'hall_name' => 'IMAX Hall',
-        'show_datetime' => '2023-12-22 20:00:00',
-        'available_seats' => 78,
-        'base_price' => 599,
-        'poster' => '../../assets/posters/inception.jpg',
-        'booked' => true,
-        'booking_id' => 101
-    ],
-    [
-        'movie_id' => 3,
-        'title' => 'The Shawshank Redemption',
-        'genre' => 'Drama',
-        'duration' => 142,
-        'hall_name' => 'VIP Hall',
-        'show_datetime' => '2023-12-25 18:00:00',
-        'available_seats' => 12,
-        'base_price' => 699,
-        'poster' => '../../assets/posters/shawshank.jpg',
-        'booked' => false
-    ]
-];
+require_once __DIR__ . "/../../controllers/getMovieController.php";
+
+$movies = getAllMovies() ?? [];
 ?>
 
 <link rel="stylesheet" href="../../assets/styles/browse_movies.css">

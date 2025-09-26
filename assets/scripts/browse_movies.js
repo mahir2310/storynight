@@ -51,18 +51,32 @@ document.addEventListener('DOMContentLoaded', function() {
     ticketQuantity.addEventListener('input', updateTotalPrice);
     
     // Close modals
-    document.querySelectorAll('.btn-cancel').forEach(btn => {
-        btn.addEventListener('click', function() {
-            bookingModal.style.display = 'none';
-            cancelModal.style.display = 'none';
-        });
+  document.querySelectorAll(".btn-cancel").forEach((btn) => {
+    btn.addEventListener("click", function () {
+      bookingModal.style.display = "none";
+      cancelModal.style.display = "none";
     });
-    
-    document.querySelectorAll('.btn-confirm').forEach(btn => {
-        btn.addEventListener('click', function() {
-            alert('Action completed!');
-            bookingModal.style.display = 'none';
-            cancelModal.style.display = 'none';
-        });
+  });
+
+  document.querySelectorAll(".btn-confirm").forEach((btn) => {
+    btn.addEventListener("click", async function () {
+      const params = new URLSearchParams({
+        action: "book",
+        movie_id: currentMovieId,
+        tickets: ticketQuantity.value,
+      });
+      
+      await fetch(
+        "/storynight/controllers/manageBookingsController.php?" +
+          params.toString()
+      )
+        .then((res) => {
+          res.text();
+          window.location.href = "../../views/customer/customer_layout.php?page=my_bookings";
+        })
+        .catch((err) => console.error("Fetch error:", err));
+      bookingModal.style.display = "none";
+      cancelModal.style.display = "none";
     });
+  });
 });
