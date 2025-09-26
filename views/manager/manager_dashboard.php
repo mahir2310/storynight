@@ -6,13 +6,9 @@ if (!isset($_SESSION['user']) || $_SESSION['user']['role'] != 'manager') {
 
 $user = $_SESSION['user'];
 
-// dummy movie stats
-$stats = [
-    'total_movies'     => 132,
-    'upcoming_movies'  => 18,
-    'total_customers'  => 1543,
-    'total_bookings'   => 4872,
-];
+require_once __DIR__ . "/../../controllers/managerDashboard.php";
+
+$stats = managerDashboard();
 ?>
 
 <div class="dashboard-header">
@@ -43,21 +39,21 @@ $stats = [
     
     <div class="stat-card">
         <div class="stat-icon">
-            <img src="../../assets/icons/users.svg" alt="Total Customers">
+            <img src="../../assets/icons/sales.svg" alt="Total Sales">
         </div>
         <div class="stat-info">
-            <h3><?php echo $stats['total_customers']; ?></h3>
-            <p>Total Customers</p>
+            <h3>৳<?php echo $stats['total_sales']; ?></h3>
+            <p>Total Sales</p>
         </div>
     </div>
     
     <div class="stat-card">
         <div class="stat-icon">
-            <img src="../../assets/icons/ticket.svg" alt="Total Bookings">
+            <img src="../../assets/icons/ticket.svg" alt="Total Tickets">
         </div>
         <div class="stat-info">
-            <h3><?php echo $stats['total_bookings']; ?></h3>
-            <p>Total Bookings</p>
+            <h3><?php echo $stats['total_tickets']; ?></h3>
+            <p>Total Tickets Sold</p>
         </div>
     </div>
 </div>

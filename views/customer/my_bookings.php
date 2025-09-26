@@ -48,7 +48,7 @@ $bookedMovies = getMyBookings($user['user_id']) ?? [];
                     </div>
 
                     <div class="movie-footer">
-                        <span class="price">Taka<?php echo number_format($movie['base_price'] * $movie['tickets'], 2); ?></span>
+                        <span class="price">Tk<?php echo number_format($movie['base_price'] * $movie['tickets'], 2); ?></span>
 
                         <div class="movie-actions">
                             <button class="btn-print" data-id="<?php echo $movie['booking_id']; ?>" >Print Ticket</button>

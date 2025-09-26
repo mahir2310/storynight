@@ -6,12 +6,9 @@ if (!isset($_SESSION['user']) || $_SESSION['user']['role'] != 'customer') {
 
 $user = $_SESSION['user'];
 
-// dummy stats
-$stats = [
-    'available_movies' => 132,
-    'my_bookings'      => 14,
-    'upcoming_bookings'=> 3
-];
+require_once __DIR__ . "/../../controllers/customerDashboard.php";
+
+$stats = customerDashboard($user['user_id']);
 ?>
 
 <div class="dashboard-header">
@@ -25,7 +22,7 @@ $stats = [
             <img src="../../assets/icons/film-black.svg" alt="Available Movies">
         </div>
         <div class="stat-info">
-            <h3><?php echo $stats['available_movies']; ?></h3>
+            <h3><?php echo $stats['total_movies']; ?></h3>
             <p>Available Movies</p>
         </div>
     </div>

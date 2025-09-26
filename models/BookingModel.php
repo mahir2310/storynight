@@ -11,7 +11,7 @@ class BookingModel
     }
 
     // Add booking with tickets count
-    public function addBooking($userId, $movieId, $tickets)
+    public function addBooking($userId, $movieId, $tickets,$totalPrice)
     {
         try {
             $this->pdo->beginTransaction();
@@ -52,27 +52,29 @@ class BookingModel
                     'movie_id' => $movieId
                 ]);
 
-                // Update booking
+                // Update booking with new tickets & price
                 $stmt = $this->pdo->prepare(
                     "UPDATE bookings 
-                 SET tickets = :tickets, booked_at = NOW() 
+                 SET tickets = :tickets, price = :price,booked_at = NOW() 
                  WHERE user_id = :user_id AND movie_id = :movie_id"
                 );
                 $stmt->execute([
                     'tickets' => $tickets,
+                    'price' => $totalPrice,
                     'user_id' => $userId,
                     'movie_id' => $movieId
                 ]);
             } else {
-                // Insert new booking
+                // Insert new booking with price
                 $stmt = $this->pdo->prepare(
-                    "INSERT INTO bookings (user_id, movie_id, tickets, booked_at) 
-                 VALUES (:user_id, :movie_id, :tickets, NOW())"
+                    "INSERT INTO bookings (user_id, movie_id, tickets, price,booked_at) 
+                 VALUES (:user_id, :movie_id, :tickets,:price, NOW())"
                 );
                 $stmt->execute([
                     'user_id' => $userId,
                     'movie_id' => $movieId,
-                    'tickets' => $tickets
+                    'tickets' => $tickets,
+                    'price' => $totalPrice
                 ]);
 
                 // Decrease available seats

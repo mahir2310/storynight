@@ -172,5 +172,77 @@ class UserModel {
             : ['success' => false, 'message' => 'Failed to update user role.'];
     }
 
+    // Update account settings
+    public function updateAccountSettings($userId, $newPassword, $oldPassword, $profilePic, $phone, $address, $gender, $dob, $critic, $bio)
+    {
+        // check old password
+        if (!empty($newPassword)) {
+            $checkSql = "SELECT password FROM users WHERE user_id = :user_id LIMIT 1";
+            $checkStmt = $this->pdo->prepare($checkSql);
+            $checkStmt->bindParam(':user_id', $userId, PDO::PARAM_INT);
+            $checkStmt->execute();
+            $result = $checkStmt->fetch(PDO::FETCH_ASSOC);
+
+            if (!$result || $result['password'] !== $oldPassword) {
+                return ['success' => false, 'message' => 'Password mismatch'];
+            }
+            unset($_SESSION['errors']);
+        }
+
+        $sql = "UPDATE users 
+            SET profile_pic = :profile_pic,
+                phone = :phone,
+                address = :address,
+                gender = :gender,
+                dob = :dob,
+                critic = :critic,
+                bio = :bio";
+
+        if (!empty($newPassword)) {
+            $sql .= ", password = :password";
+        }
+
+        $sql .= " WHERE user_id = :user_id";
+
+        $stmt = $this->pdo->prepare($sql);
+
+        $stmt->bindParam(':profile_pic', $profilePic, PDO::PARAM_STR);
+        $stmt->bindParam(':phone', $phone, PDO::PARAM_STR);
+        $stmt->bindParam(':address', $address, PDO::PARAM_STR);
+        $stmt->bindParam(':gender', $gender, PDO::PARAM_STR);
+        $stmt->bindParam(':dob', $dob, PDO::PARAM_STR);
+        $stmt->bindParam(':critic', $critic, PDO::PARAM_INT);
+        $stmt->bindParam(':bio', $bio, PDO::PARAM_STR);
+        $stmt->bindParam(':user_id', $userId, PDO::PARAM_INT);
+
+        // Bind password if not empty
+        if (!empty($newPassword)) {
+            $stmt->bindParam(':password', $newPassword, PDO::PARAM_STR);
+        }
+
+        $success = $stmt->execute();
+
+        return $success
+            ? ['success' => true, 'message' => 'Account settings updated successfully!']
+            : ['success' => false, 'message' => 'Failed to update account settings.'];
+    }
+
+    // Get user by ID
+    public function getUserById($userId)
+    {
+        $sql = "SELECT * FROM users WHERE user_id = :user_id LIMIT 1";
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->bindParam(':user_id', $userId, PDO::PARAM_INT);
+        $stmt->execute();
+
+        $user = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        if ($user) {
+            unset($user['password']);
+        }
+
+        return $user;
+    }
+
 }
 ?>

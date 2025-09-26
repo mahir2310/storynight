@@ -64,15 +64,18 @@ document.addEventListener('DOMContentLoaded', function() {
         action: "book",
         movie_id: currentMovieId,
         tickets: ticketQuantity.value,
+        total_price: totalPrice.textContent,
       });
       
       await fetch(
         "/storynight/controllers/manageBookingsController.php?" +
-          params.toString()
+          params.toString(),
+        { credentials: "include" }
       )
-        .then((res) => {
-          res.text();
-          window.location.href = "../../views/customer/customer_layout.php?page=my_bookings";
+        .then((res) => res.text())
+        .then((text) => {
+          window.location.href =
+            "../../views/customer/customer_layout.php?page=my_bookings";
         })
         .catch((err) => console.error("Fetch error:", err));
       bookingModal.style.display = "none";

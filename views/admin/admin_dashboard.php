@@ -6,14 +6,9 @@ if (!isset($_SESSION['user']) || $_SESSION['user']['role'] != 'admin') {
 
 $user = $_SESSION['user'];
 
-// dummy data
-$stats = [
-    'total_users' => 1542,
-    'total_managers' => 24,
-    'total_customers' => 1503,
-    'banned_users' => 15,
-    'recent_users' => 42
-];
+require_once __DIR__ . "/../../controllers/adminDashboard.php";
+
+$stats = adminDashboard();
 ?>
 
 <div class="dashboard-header">
